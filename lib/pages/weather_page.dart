@@ -75,6 +75,7 @@ class _WeatherPageState extends State<WeatherPage> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     final now = DateTime.now();
     final weekdayNames = [
       'Monday',
@@ -104,118 +105,123 @@ class _WeatherPageState extends State<WeatherPage> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xFF4FA5F9), Color(0xFF1E60E8)],
-              ),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(40),
-                bottomRight: Radius.circular(40),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.blue.shade900,
-                  spreadRadius: -10,
-                  blurRadius: 30,
-                  offset: Offset(0, 22),
-                  blurStyle: BlurStyle.inner,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: screenHeight * 0.70,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Color(0xFF4FA5F9), Color(0xFF1E60E8)],
+                  ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(40),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.blue.shade900,
+                      spreadRadius: -10,
+                      blurRadius: 30,
+                      offset: Offset(0, 22),
+                      blurStyle: BlurStyle.inner,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            child: SafeArea(
-              bottom: false,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
+                child: SafeArea(
+                  bottom: false,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(Icons.location_on),
-                            Text(
-                              _weather?.cityName ?? "loading city..",
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            Row(
+                              children: [
+                                Icon(Icons.location_on),
+                                Text(
+                                  _weather?.cityName ?? "loading city..",
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            IconButton(
+                              onPressed: _fetchWeather,
+                              icon: Icon(Icons.refresh),
                             ),
                           ],
                         ),
-                        IconButton(
-                          onPressed: _fetchWeather,
-                          icon: Icon(Icons.refresh),
+                      ),
+
+                      Flexible(
+                        child: Lottie.asset(
+                          getWeatherAnimation(_weather?.weatherCondition),
+                          fit: BoxFit.contain,
                         ),
-                      ],
-                    ),
-                  ),
-
-                  SizedBox(height: 20),
-
-                  Lottie.asset(getWeatherAnimation(_weather?.weatherCondition)),
-                  Text(
-                    '${_weather?.temperature.round()}°',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 80,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  // weather condition
-                  Text(
-                    _weather?.weatherCondition ?? "",
-                    style: TextStyle(fontSize: 25, fontFamily: 'Poppins'),
-                  ),
-                  Text(
-                    formattedDate,
-                    style: TextStyle(fontSize: 13, fontFamily: 'Poppins'),
-                  ),
-
-                  // The Divider
-                  Container(
-                    margin: EdgeInsets.all(20),
-                    height: 0.5,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).textTheme.bodyMedium?.color,
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      AdditionalItems(
-                        icon: Icons.air_rounded,
-                        value: '${_weather?.windSpeed.round() ?? 0} km/h',
-                        label: 'Wind',
                       ),
-                      AdditionalItems(
-                        icon: Icons.water_drop_outlined,
-                        value: '${_weather?.humidity ?? 0}%',
-                        label: 'Humidity',
+                      Text(
+                        '${_weather?.temperature.round()}°',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 80,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                      AdditionalItems(
-                        icon: Icons.umbrella_outlined,
-                        value: '${_weather?.rainChance ?? 0}%',
-                        label: 'Chance of rain',
+                      // weather condition
+                      Text(
+                        _weather?.weatherCondition ?? "",
+                        style: TextStyle(fontSize: 25, fontFamily: 'Poppins'),
                       ),
+                      Text(
+                        formattedDate,
+                        style: TextStyle(fontSize: 13, fontFamily: 'Poppins'),
+                      ),
+
+                      // The Divider
+                      Container(
+                        margin: EdgeInsets.all(20),
+                        height: 0.5,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).textTheme.bodyMedium?.color,
+                        ),
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          AdditionalItems(
+                            icon: Icons.air_rounded,
+                            value: '${_weather?.windSpeed.round() ?? 0} km/h',
+                            label: 'Wind',
+                          ),
+                          AdditionalItems(
+                            icon: Icons.water_drop_outlined,
+                            value: '${_weather?.humidity ?? 0}%',
+                            label: 'Humidity',
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 30),
                     ],
                   ),
-                  SizedBox(height: 30),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
-
-      // temperature
     );
   }
 }
