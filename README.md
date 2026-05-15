@@ -1,4 +1,4 @@
-# Smooth Weather<img width="1080" height="2280" alt="Screenshot_20260515-063031" src="https://github.com/user-attachments/assets/738be687-3d65-448f-8705-d58b41bd43a7" />
+# Smooth Weather<img width="250" alt="Screenshot_20260515-063031" src="https://github.com/user-attachments/assets/738be687-3d65-448f-8705-d58b41bd43a7" />
 
 
 A beautifully designed, responsive weather application built with Flutter which provides real-time weather updates with a focus on a premium user experience, featuring dynamic Lottie animations, and secure API integration.
