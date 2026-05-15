@@ -13,7 +13,6 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
-  // api key
   final _weatherService = WeatherService();
   Weather? _weather;
 
@@ -110,7 +109,7 @@ class _WeatherPageState extends State<WeatherPage> {
           child: Column(
             children: [
               Container(
-                height: screenHeight * 0.70,
+                height: screenHeight * 0.92,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -191,7 +190,7 @@ class _WeatherPageState extends State<WeatherPage> {
 
                       // The Divider
                       Container(
-                        margin: EdgeInsets.all(20),
+                        margin: EdgeInsets.all(30),
                         height: 0.5,
                         decoration: BoxDecoration(
                           color: Theme.of(context).textTheme.bodyMedium?.color,
@@ -213,11 +212,31 @@ class _WeatherPageState extends State<WeatherPage> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 30),
+                      //SizedBox(height: 30),
                     ],
                   ),
                 ),
               ),
+              //Padding(
+              //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              //child: Column(
+              //children: [
+              //Row(
+              //children: [
+              //Text(
+              //'Today',
+              //style: TextStyle(
+              //fontFamily: 'Poppins',
+              //fontSize: 16,
+              //fontWeight: FontWeight.bold,
+              //),
+              //),
+              //],
+              //),
+              //SizedBox(height: 4),
+              //],
+              //),
+              //),
             ],
           ),
         ),
