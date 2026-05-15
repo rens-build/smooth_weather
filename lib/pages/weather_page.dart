@@ -18,6 +18,9 @@ class _WeatherPageState extends State<WeatherPage> {
 
   // fetch weather
   Future<void> _fetchWeather() async {
+    setState(() {
+      _weather = null;
+    });
     // get the current city
     String cityName = await _weatherService.getCurrentCity();
 
